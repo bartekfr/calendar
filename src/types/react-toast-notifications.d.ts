@@ -42,7 +42,7 @@ declare module 'react-toast-notifications' {
   }
 
   export interface ToastProviderProps {
-    components: Components
+    components?: Components
     autoDismissTimeout?: number
     placement?: Placement
   }
