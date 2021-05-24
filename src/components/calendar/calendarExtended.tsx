@@ -2,6 +2,7 @@ import { exhaustiveCheck } from '../../common/util'
 import { Select } from '../../common/formikFields/selectField'
 // import * as log from '../../common/log'
 import React from 'react'
+import { useToasts } from 'react-toast-notifications';
 // import { useToasts } from 'react-toast-notifications'
 import Calendar from './calendar'
 import { checkOverlap, getUserColor, getUserFullName } from './helpers'
@@ -88,9 +89,8 @@ const CalendarExtended: React.FunctionComponent<CalendarExtendedProps> = props =
     }),
     [events, users]
   )
-
-  //TODO: replace with UI alert
-  const showOverlapAlert = (name: string = 'Unknown') => console.log(`Events of ${name} overlap.`, { appearance: 'error', autoDismiss: true })
+  const { addToast } = useToasts();
+  const showOverlapAlert = (name: string = 'Unknown') => addToast(`Events of ${name} overlap.`, { appearance: 'error', autoDismiss: true })
 
   const handleAddEvent = (eventData: DateClickData, userData: UserEventData) => {
     const color = getUserColor(userData.userId, users)
