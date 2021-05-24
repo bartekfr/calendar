@@ -4,7 +4,7 @@ export const Label = styled.label<{ error?: boolean}>`
   width: 100%;
   flex: 1 0 auto;
   font-size: 13px;
-  color: ${props => props.theme.colors.GREY};
+  color: ${props => props.theme.colors.TEXT};
   margin: 13px 0 8px 0;
   display: flex;
   justify-content: flex-start;

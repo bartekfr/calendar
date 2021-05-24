@@ -1,6 +1,7 @@
 import Modal from '../../common/modal'
 import styled from 'styled-components'
 import * as React from 'react'
+import { Button } from './styled'
 
 const ModalContent = styled.div`
   p {
@@ -46,16 +47,18 @@ const DateClickWarning: React.FunctionComponent<DateClickWarningProps> = props =
           Are you sure you want to delete this event?
         </p>
         <div>
-          <button
+          <Button
             onClick={props.onRequestClose}
+            type='button'
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => props.onDelete()}
+            type='button'
           >
             Delete
-          </button>
+          </Button>
         </div>
       </ModalContent>
       </Modal>

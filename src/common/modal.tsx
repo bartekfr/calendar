@@ -21,8 +21,8 @@ const ModalTitle = styled.h2`
   margin-bottom: 30px;
   font-weight: 400;
   font-size: 19px;
-  color: ${props => props.theme.colors.GREY};
-  border-bottom: 1px solid ${props => props.theme.colors.GREEN};
+  color: ${props => props.theme.colors.TEXT};
+  border-bottom: 1px solid ${props => props.theme.colors.BORDER};
 `
 
 const CloseModalBtn = styled.button.attrs({

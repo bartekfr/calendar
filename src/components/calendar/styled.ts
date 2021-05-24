@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 export const Toolbar = styled.div`
   display: flex;
@@ -39,33 +39,30 @@ export const ToolbarBottom = styled.div`
   }
 `
 
-export const GlobalFullScreenStyle = createGlobalStyle`
-  #app {
-    overflow-y: auto;
-
-    header {
-      display: none;
-    }
-
-    > section:first-of-type {
-      display: none;
-    }
-
-    > section:last-child {
-      margin :0;
-
-      > div > div:first-child {
-        display: none;
-      }
-    }
-
-    ${Wrapper} {
-      margin: 0 -15px;
-    }
-  }
-`
-
-export const FullScreenBtn = styled.div`
+export const Button = styled.button`
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px 0 0;
+  padding: 5px 15px;
+  line-height: 30px;
+  border: 2px solid ${props => props.theme.colors.BORDER};
+  background-color: #fff;
+  border-radius: 5px;
   cursor: pointer;
-  align-self: flex-start;
+  font-size: 14px;
+  transition: opacity .5s;
+  font-weight: 500;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &[type="submit"] {
+    background-color: ${props => props.theme.colors.SUCCESS};
+    color: #fff;
+  }
 `

@@ -4,6 +4,7 @@ import TextareaField from '../../common/formikFields/textareaField'
 import styled from 'styled-components'
 import { Field, Form, FormikProps, withFormik } from 'formik'
 import * as React from 'react'
+import { Button } from './styled'
 
 import { User, UserEventData } from './types'
 
@@ -44,16 +45,16 @@ const AddEventFormView: React.FunctionComponent<AddEventFormViewProps> = props =
         <Field name={'publicNote'} component={TextareaField} label='Public note' />
         <Field name={'privateNote'} component={TextareaField} label='Private note' />
         <StyledButtons>
-          <button
+          <Button
             onClick={props.onCancel}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             type='submit'
           >
             Submit
-          </button>
+          </Button>
         </StyledButtons>
       </Form>
     </>

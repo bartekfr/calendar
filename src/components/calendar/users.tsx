@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import * as React from 'react'
+import { Button } from './styled'
 import { CalendarUser, EventData } from './types'
 
 const Wrapper = styled.div`
@@ -13,32 +14,18 @@ const Wrapper = styled.div`
     font-size: 14px;
   }
 
-  button {
+  Button {
     margin-right: 10px;
   }
 `
 
-const Item = styled.div<{
+const Item = styled(Button)<{
   active: boolean
   color: string
 }>`
-  margin: 0 10px 0 0;
-  padding: 5px 15px;
-  border-radius: 3px;
-  height: 30px;
-  line-height: 30px;
   background-color: ${props => props.active ? props.color : '#fff'};
-  border: 2px solid ${props => props.color};
   border-color: ${props => props.active ? props.color : props.theme.colors.GREEN};
   color: ${props => props.active ? '#fff' : props.theme.colors.BORDER};
-  cursor: pointer;
-  font-size: 14px;
-  transition: opacity .5s;
-  font-weight: 500;
-
-  &:hover {
-    opacity: 0.8;
-  }
 `
 
 interface UsersProps {
@@ -77,18 +64,18 @@ const Users: React.FunctionComponent<UsersProps> = props => {
 
   return (
     <Wrapper>
-      <button
+      <Button
         onClick={() => toggleAll(true)}
         disabled={allSelected}
       >
         Select all
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => toggleAll(false)}
         disabled={allDeselected}
       >
         Deselect all
-      </button>
+      </Button>
       {
         users.map(p => (
           <Item
