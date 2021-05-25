@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import events from './events'
+import users from './users'
 
 const rootReducer = combineReducers({
-  events: events.reducer
+  events: events.reducer,
+  users: users.reducer
 })
 
 const store = configureStore({

@@ -36,6 +36,8 @@ interface UsersProps {
 const Users: React.FunctionComponent<UsersProps> = props => {
   const { users, setUsers } = props
 
+  // TODO: local react state is ok in this case, no need to store selected usrr in redux store
+
   const toggle = (id: EventData['user']['id']) => {
     const updatedUsers = users.map(p => {
       if (p.id === id) {

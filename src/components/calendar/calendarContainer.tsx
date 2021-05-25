@@ -1,22 +1,26 @@
 import React from 'react'
 import Calendar from './calendarExtended'
 import { assignUsersColorsToEvents, initializeUsersData } from './helpers'
-import { mockUsers } from './mockData'
 
 import { useAppSelector, useAppDispatch } from '../../common/hooks'
 import eventsSlice, { loadEvents } from '../../store/events'
+import { loadUsers } from '../../store/users'
 
 
 
 const AffiliateCalendarContainer: React.FunctionComponent = () => {
   const dispatch = useAppDispatch()
   const events = useAppSelector(state => state.events.list)
+  const users = useAppSelector(state => state.users.list)
+  const eventsLoading = useAppSelector(state => state.events.loading)
+  const usersLoading = useAppSelector(state => state.users.loading)
 
-  const usersWithColors = initializeUsersData(mockUsers)
+  const usersWithColors = initializeUsersData(users)
 
 
   React.useEffect(() => {
     dispatch(loadEvents())
+    dispatch(loadUsers())
   }, [dispatch])
 
   const eventsWithColors = React.useMemo(() => assignUsersColorsToEvents(events, usersWithColors), [events, usersWithColors])
@@ -24,7 +28,7 @@ const AffiliateCalendarContainer: React.FunctionComponent = () => {
   return (
     <>
       {
-        eventsWithColors.length > 0 && usersWithColors.length > 0 && <Calendar
+        !eventsLoading && !usersLoading && <Calendar
           events={eventsWithColors}
           users={usersWithColors}
           addingMultipleEvents

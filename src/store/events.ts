@@ -10,11 +10,9 @@ export interface EventsState {
 
 export const loadEvents = createAsyncThunk(
   'events/list',
-  // Declare the type your function argument here:
   async () => {
     // just simulate async request
-    await fetch(`https://jsonplaceholder.typicode.com/events`)
-    // Inferred return type: Promise<MyData>
+    await fetch(`https://jsonplaceholder.typicode.com/todos`)
     console.log('response')
     return mockEvents as RawEventData[]
   }
