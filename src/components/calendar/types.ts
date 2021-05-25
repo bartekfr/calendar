@@ -11,8 +11,8 @@ export interface RawEventData {
   allDay: boolean
   eventId: number // distinguish from FullCalendar 'id' prop
   user: User
-  start: Date
-  end?: Date
+  start: Date | string
+  end?: Date | string
   title: string
   privateNote?: string
   publicNote?: string

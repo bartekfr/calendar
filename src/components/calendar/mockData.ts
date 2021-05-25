@@ -10,7 +10,7 @@ export const getShiftedDate = (days: number, hour: number) => {
   if (dayOfWeek < 1 || dayOfWeek > 5) {
     newDate.setDate(newDate.getDate() + 2)
   }
-  return new Date(newDate)
+  return new Date(newDate).toISOString()
 }
 
 // replace with fetched Users when users API is completed

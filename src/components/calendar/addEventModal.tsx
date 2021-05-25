@@ -25,7 +25,7 @@ interface EventModalProps {
   onRequestClose: () => void
   isOpen: boolean
   onSubmit: CustomProps['onSubmit']
-  date: Date
+  date: Date | string
   users: CustomProps['users']
   allDay: boolean
   title: string

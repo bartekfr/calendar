@@ -1,7 +1,8 @@
-import { exhaustiveCheck } from '../../common/util'
 import { Select } from '../../common/formikFields/selectField'
 // import * as log from '../../common/log'
 import React from 'react'
+import { useAppDispatch } from '../../common/hooks'
+import eventsSlice from '../../store/events'
 import { useToasts } from 'react-toast-notifications';
 // import { useToasts } from 'react-toast-notifications'
 import Calendar from './calendar'
@@ -21,48 +22,6 @@ const timezoneOptions = [{
   value: 'Etc/UTC'
 }]
 
-const ADD_EVENT = 'ADD_EVENT'
-const REMOVE_EVENT = 'REMOVE_EVENT'
-const EDIT_EVENT = 'EDIT_EVENT'
-
-interface AddAction {
-  type: typeof ADD_EVENT,
-  payload: EventData
-}
-
-interface RemoveAction {
-  type: typeof REMOVE_EVENT,
-  payload: EventData['eventId']
-}
-
-interface EditAction {
-  type: typeof EDIT_EVENT,
-  payload: EventDelta
-}
-
-type EventAction = AddAction | RemoveAction | EditAction
-
-const eventsReducer = (events: EventData[], action: EventAction) => {
-  switch (action.type) {
-    case ADD_EVENT:
-      return events.concat(action.payload)
-    case REMOVE_EVENT:
-      return events.filter(e => e.eventId !== action.payload)
-    case EDIT_EVENT:
-      return events.map(e => {
-        if (e.eventId === action.payload.eventId) {
-          return {
-            ...e,
-            ...action.payload
-          }
-        } else {
-          return e
-        }
-      })
-    default:
-      return exhaustiveCheck(action)
-  }
-}
 
 interface CalendarExtendedProps {
   users: CalendarUser[]
@@ -76,18 +35,18 @@ interface CalendarExtendedProps {
 }
 
 const CalendarExtended: React.FunctionComponent<CalendarExtendedProps> = props => {
-  const [events, dispatch] = React.useReducer(eventsReducer, props.events)
+  const dispatch = useAppDispatch()
   const [users, setUsers] = React.useState<CalendarUser[]>(props.users)
   const [timezone, setTimezone] = React.useState<string>('local')
-  const disableAddingEvents = React.useMemo(() => events.some(e => !!e.isNew), [events])
+  const disableAddingEvents = React.useMemo(() => props.events.some(e => !!e.isNew), [props.events])
   const filteredEvents = React.useMemo(
-    () => events.filter(e => {
+    () => props.events.filter(e => {
       const eventUserId = e.user.id
       const user = users.find(p => p.id === eventUserId)
       const showEvent = user && user.checked
       return showEvent
     }),
-    [events, users]
+    [props.events, users]
   )
   const { addToast } = useToasts();
   const showOverlapAlert = (name: string = 'Unknown') => addToast(`Events of ${name} overlap.`, { appearance: 'error', autoDismiss: true })
@@ -102,7 +61,7 @@ const CalendarExtended: React.FunctionComponent<CalendarExtendedProps> = props =
       },
       privateNote: userData.privateNote,
       publicNote: userData.publicNote,
-      start: eventData.date,
+      start: eventData.date.toISOString(),
       title: 'New Just Added Event'
     }
     props.onAddEvent(mutationVariables)
@@ -115,11 +74,8 @@ const CalendarExtended: React.FunctionComponent<CalendarExtendedProps> = props =
       eventId: new Date().getUTCMilliseconds(),
       isNew: true
     }
-    dispatch({
-      payload: combinedData,
-      type: ADD_EVENT
-    })
-    const overlap = checkOverlap(events, combinedData)
+    dispatch(eventsSlice.actions.add(combinedData))
+    const overlap = checkOverlap(props.events, combinedData)
     if (overlap) {
       const userName = getUserFullName(users, combinedData.user.id)
       showOverlapAlert(userName)
@@ -127,10 +83,7 @@ const CalendarExtended: React.FunctionComponent<CalendarExtendedProps> = props =
   }
 
   const handleRemoveEvent = (id: EventData['eventId']) => {
-    dispatch({
-      payload: id,
-      type: REMOVE_EVENT
-    })
+    dispatch(eventsSlice.actions.delete(id))
     props.onRemoveEvent(id)
   }
 
@@ -143,19 +96,16 @@ const CalendarExtended: React.FunctionComponent<CalendarExtendedProps> = props =
     if (color) {
       deltaCopy.color = color
     }
-    dispatch({
-      payload: deltaCopy,
-      type: EDIT_EVENT
-    })
+    dispatch(eventsSlice.actions.edit(deltaCopy))
 
     props.onEditEvent(deltaCopy)
-    const currentEvent = events.find(e => e.eventId === deltaCopy.eventId)
+    const currentEvent = props.events.find(e => e.eventId === deltaCopy.eventId)
     if (currentEvent) {
       const currentEventComplete = {
         ...currentEvent,
         ...deltaCopy
       }
-      const overlap = checkOverlap(events, currentEventComplete)
+      const overlap = checkOverlap(props.events, currentEventComplete)
       if (overlap) {
         const userName = getUserFullName(users, currentEventComplete.user.id)
         showOverlapAlert(userName)

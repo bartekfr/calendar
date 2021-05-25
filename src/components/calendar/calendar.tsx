@@ -94,6 +94,7 @@ interface CalendarProps {
 }
 
 const Calendar: React.FunctionComponent<CalendarProps> = props => {
+  console.log(44, props.events)
   const [eventModalVisible, toggleEventModal] = React.useState(false)
   const [dateClickWarningVisible, toggleDateClickWarning] = React.useState(false)
   const [eventEditModalVisible, toggleEventEditModal] = React.useState(false)
@@ -140,11 +141,12 @@ const Calendar: React.FunctionComponent<CalendarProps> = props => {
   }, [])
 
   const handleEdit = (event: InfoEvent) => {
+    const now = new Date()
     props.onEdit({
       allDay: event.allDay,
-      end: event.end ? event.end : undefined,
+      end: event.end ? event.end.toISOString() : undefined,
       eventId: event.extendedProps.eventId,
-      start: event.start ? event.start : new Date()
+      start: event.start ? event.start.toISOString() : now.toISOString()
     })
   }
 
