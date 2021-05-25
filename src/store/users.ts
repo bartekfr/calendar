@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { mockUsers } from '../components/calendar/mockData'
 import { User } from '../components/calendar/types'
 
-export interface EventsState {
+export interface UsersState {
   list: User[]
   loading?: boolean
 }
@@ -17,11 +17,11 @@ export const loadUsers = createAsyncThunk(
   }
 )
 
-const events = createSlice({
-  name: 'events',
+const users = createSlice({
+  name: 'users',
   initialState: {
     list: []
-  } as EventsState,
+  } as UsersState,
   reducers: {
 
   },
@@ -37,4 +37,4 @@ const events = createSlice({
   }
 })
 
-export default events
+export default users
