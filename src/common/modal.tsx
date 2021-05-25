@@ -9,7 +9,7 @@ const ModalContentWrapper = styled.div`
   padding: 36px 44px 30px;
   min-width: 300px;
   max-width: 90vw;
-  min-height: 200px;
+  min-height: 100px;
   background: #fff;
   pointer-events: auto;
   overflow: hidden;
@@ -34,7 +34,7 @@ const CloseModalBtn = styled.button.attrs({
   width: 24px;
   height: 24px;
   background: transparent;
-  font-size: 42px;
+  font-size: 28px;
   font-weight: 300;
   line-height: 25px;
   text-align: center;

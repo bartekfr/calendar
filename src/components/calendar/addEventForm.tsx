@@ -8,6 +8,12 @@ import { Button } from './styled'
 
 import { User, UserEventData } from './types'
 
+const Wrapper = styled.div`
+  height: calc(100vh - 180px);
+  padding: 0 20px 0 10px;
+  overflow: auto;
+`
+
 const StyledButtons = styled.div`
   margin: 20px 0;
   display: flex;
@@ -31,7 +37,7 @@ type AddEventFormViewProps = FormikProps<FormValues> & CustomProps
 
 const AddEventFormView: React.FunctionComponent<AddEventFormViewProps> = props => {
   return (
-    <>
+    <Wrapper>
       <Form>
         <Field
           name={'userId'}
@@ -57,7 +63,7 @@ const AddEventFormView: React.FunctionComponent<AddEventFormViewProps> = props =
           </Button>
         </StyledButtons>
       </Form>
-    </>
+    </Wrapper>
   )
 }
 

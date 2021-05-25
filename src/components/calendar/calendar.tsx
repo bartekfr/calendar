@@ -94,7 +94,6 @@ interface CalendarProps {
 }
 
 const Calendar: React.FunctionComponent<CalendarProps> = props => {
-  console.log(44, props.events)
   const [eventModalVisible, toggleEventModal] = React.useState(false)
   const [dateClickWarningVisible, toggleDateClickWarning] = React.useState(false)
   const [eventEditModalVisible, toggleEventEditModal] = React.useState(false)
