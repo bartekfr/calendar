@@ -179,6 +179,7 @@ const Calendar: React.FunctionComponent<CalendarProps> = props => {
             const removeBtnEl = document.createElement('span')
             removeBtnEl.innerHTML = '&times;'
             removeBtnEl.className = 'cal-event-remove'
+            info.el.setAttribute('data-user-id', info.event.extendedProps.user.id)
             info.el.appendChild(removeBtnEl)
             const eventId = info.event.extendedProps.eventId
             removeBtnEl.setAttribute('data-event-id', eventId)

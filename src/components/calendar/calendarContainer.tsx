@@ -8,7 +8,7 @@ import { loadUsers } from '../../store/users'
 
 
 
-const AffiliateCalendarContainer: React.FunctionComponent = () => {
+const CalendarContainer: React.FunctionComponent = () => {
   const dispatch = useAppDispatch()
   const events = useAppSelector(state => state.events.list)
   const users = useAppSelector(state => state.users.list)
@@ -43,4 +43,4 @@ const AffiliateCalendarContainer: React.FunctionComponent = () => {
   )
 }
 
-export default AffiliateCalendarContainer
+export default CalendarContainer

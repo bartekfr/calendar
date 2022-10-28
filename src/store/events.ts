@@ -51,7 +51,7 @@ const events = createSlice({
         state.loading = true
       })
       .addCase(loadEvents.fulfilled, (state, action) => {
-        state.list = action.payload.slice(0, 5)
+        state.list = action.payload
         state.loading = false
       })
   }

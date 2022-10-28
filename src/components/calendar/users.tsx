@@ -65,7 +65,7 @@ const Users: React.FunctionComponent<UsersProps> = props => {
   const allDeselected = React.useMemo(() => users.every(p => !p.checked), [users])
 
   return (
-    <Wrapper>
+    <Wrapper className='users'>
       <Button
         onClick={() => toggleAll(true)}
         disabled={allSelected}
@@ -78,18 +78,21 @@ const Users: React.FunctionComponent<UsersProps> = props => {
       >
         Deselect all
       </Button>
-      {
-        users.map(p => (
-          <Item
-            key={p.id}
-            onClick={() => toggle(p.id)}
-            color={p.color}
-            active={!!p.checked}
-          >
-            {`${p.firstName} ${p.lastName}`}
-          </Item>
-        ))
-      }
+      <div className='users-list'>
+        {
+          users.map(p => (
+            <Item
+              key={p.id}
+              onClick={() => toggle(p.id)}
+              color={p.color}
+              active={!!p.checked}
+              data-id={p.id}
+            >
+              {`${p.firstName} ${p.lastName}`}
+            </Item>
+          ))
+        }
+      </div>
     </Wrapper>
   )
 }
