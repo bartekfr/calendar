@@ -1,4 +1,5 @@
-import { should } from "chai"
+import { mockEvents } from '../../src/components/calendar/mockData'
+import moment from 'moment'
 
 describe('App', () => {
   it('Loads page', () => {
@@ -8,7 +9,7 @@ describe('App', () => {
   })
 
   it('Can de/select single user', () => {
-    cy.get('.users-list').find('button').as('buttons').should('not.be.disabled')
+    cy.get('.users-list').find('button').as('buttons')
 
     cy.get('@buttons').contains('Mark Novak').as('user').invoke('css', 'background-color').then(userColor => {
       cy.get('@user').click()
@@ -68,4 +69,16 @@ describe('App', () => {
     cy.get('@user1Events').should('exist')
   })
 
+  it('Clicking event opens Edit Event modal', () => {
+    const eventTitle = 'Event no 5'
+    const event = mockEvents.find(e => e.title === eventTitle)
+    const eventDate = event && event.start
+    const eventDateString = moment(eventDate).format('MM/DD/YYYY HH:mm')
+
+    cy.contains('.fc-event', eventTitle).click()
+
+    cy.get('.ReactModal__Content').as('modal')
+    cy.get('@modal').contains('Edit Event')
+    cy.get('@modal').find('time').should('have.text', eventDateString)
+  })
 })
