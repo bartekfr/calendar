@@ -1,6 +1,16 @@
 {
   "compilerOptions": {
     "baseUrl": "../node_modules",
+    "target": "es5",
+    "module": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "strict": true,
     "types": [
       "cypress"
     ]
