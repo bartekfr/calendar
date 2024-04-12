@@ -29,7 +29,7 @@ const FakeInput = styled.div<{focus: boolean, error?: boolean, compactMode?: boo
 `
 
 export const StyledInput = styled.input`
-  padding: 5px 10px;
+  padding: 0 10px;
   height: 100%;
   border: none;
   outline: none;
