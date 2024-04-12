@@ -62,7 +62,7 @@ const CalendarExtended: React.FunctionComponent<CalendarExtendedProps> = props =
       privateNote: userData.privateNote,
       publicNote: userData.publicNote,
       start: eventData.date.toISOString(),
-      title: 'New Just Added Event'
+      title: userData.title || 'New Just Added Event'
     }
     props.onAddEvent(mutationVariables)
     // object with data required to updated state after adding new event

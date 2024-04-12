@@ -1,4 +1,5 @@
 import { unsetNumberId } from '../../common/consts'
+import InputField from '../../common/formikFields/inputField'
 import SelectField from '../../common/formikFields/selectField'
 import TextareaField from '../../common/formikFields/textareaField'
 import styled from 'styled-components'
@@ -40,7 +41,7 @@ const AddEventFormView: React.FunctionComponent<AddEventFormViewProps> = props =
     <Wrapper>
       <Form>
         <Field
-          name={'userId'}
+          name='userId'
           component={SelectField}
           label='Assign user'
           options={props.users.map(p => ({
@@ -48,8 +49,9 @@ const AddEventFormView: React.FunctionComponent<AddEventFormViewProps> = props =
             value: p.id
           }))}
         />
-        <Field name={'publicNote'} component={TextareaField} label='Public note' />
-        <Field name={'privateNote'} component={TextareaField} label='Private note' />
+        <Field name='title' data-cy='event-title' component={InputField} label='Title' />
+        <Field name='publicNote' component={TextareaField} label='Public note' />
+        <Field name='privateNote' component={TextareaField} label='Private note' />
         <StyledButtons>
           <Button
             onClick={props.onCancel}
@@ -76,6 +78,7 @@ const AddEventForm = withFormik<CustomProps, FormValues>({
     userId: unsetNumberId,
     privateNote: '',
     publicNote: '',
+    title: '',
     ...props.initialData
   })
 })(AddEventFormView)

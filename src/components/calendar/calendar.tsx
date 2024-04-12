@@ -176,12 +176,13 @@ const Calendar: React.FunctionComponent<CalendarProps> = props => {
             if (!info.event.extendedProps.isNew && !props.allEditable) {
               return
             }
+            const eventId = info.event.extendedProps.eventId
             const removeBtnEl = document.createElement('span')
             removeBtnEl.innerHTML = '&times;'
             removeBtnEl.className = 'cal-event-remove'
             info.el.setAttribute('data-user-id', info.event.extendedProps.user.id)
+            info.el.setAttribute('data-event-id', eventId)
             info.el.appendChild(removeBtnEl)
-            const eventId = info.event.extendedProps.eventId
             removeBtnEl.setAttribute('data-event-id', eventId)
             eventRemoveBtns.current.push(removeBtnEl)
 
@@ -217,14 +218,15 @@ const Calendar: React.FunctionComponent<CalendarProps> = props => {
           isOpen={eventEditModalVisible}
           date={editedEvent.start}
           onRequestClose={() => toggleEventEditModal(false)}
-          onSubmit={({ userId, privateNote, publicNote }) => {
+          onSubmit={({ userId, privateNote, publicNote, title }) => {
             props.onEdit({
               eventId: editedEvent.eventId,
               user: {
                 id: userId
               },
               privateNote,
-              publicNote
+              publicNote,
+              title
             })
             toggleEventEditModal(false)
           }}
@@ -234,7 +236,8 @@ const Calendar: React.FunctionComponent<CalendarProps> = props => {
           initialData={{
             userId: editedEvent.user.id,
             privateNote: editedEvent.privateNote,
-            publicNote: editedEvent.publicNote
+            publicNote: editedEvent.publicNote,
+            title: editedEvent.title
           }}
           timeZone={props.timeZone}
         />

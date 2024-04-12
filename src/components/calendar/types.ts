@@ -37,9 +37,9 @@ export type CalendarUser = User & {
 
 export type UserEventData = {
   userId: User['id']
-} & Pick<EventData, 'privateNote' | 'publicNote'>
+} & Pick<EventData, 'privateNote' | 'publicNote' | 'title'>
 
-type EditableFields = 'allDay' | 'end' | 'start' | 'user' | 'publicNote' | 'privateNote' | 'color'
+type EditableFields = 'allDay' | 'end' | 'start' | 'user' | 'title' | 'publicNote' | 'privateNote' | 'color'
 export type EventDelta = Pick<EventData, 'eventId'> & Partial<Pick<EventData, EditableFields>>
 
 export enum DaysOfWeek {
