@@ -2,9 +2,8 @@ import { mockEvents } from '../../src/components/calendar/mockData'
 import moment from 'moment'
 
 describe('App', () => {
-  it('Loads page', () => {
+  beforeEach(() => {
     cy.visit('/')
-
     cy.get('.fc-view')
   })
 
@@ -72,13 +71,22 @@ describe('App', () => {
   it('Clicking event opens Edit Event modal', () => {
     const eventTitle = 'Event no 5'
     const event = mockEvents.find(e => e.title === eventTitle)
+    const eventId = event?.eventId
+    console.log('id', eventId)
     const eventDate = event && event.start
     const eventDateString = moment(eventDate).format('MM/DD/YYYY HH:mm')
 
-    cy.contains('.fc-event', eventTitle).click()
+    cy.get(`.fc-event[data-event-id=${eventId}]`).contains(eventTitle).click()
 
     cy.get('.ReactModal__Content').as('modal')
     cy.get('@modal').contains('Edit Event')
     cy.get('@modal').find('time').should('have.text', eventDateString)
+    cy.get('[data-cy="event-title"]')
+      .should('have.value', eventTitle)
+      .type('{selectAll}{del}Lorem Event')
+
+    cy.get('button[type="submit"]').click()
+
+    cy.get(`.fc-event[data-event-id=${eventId}]`).contains('Lorem Event')
   })
 })
